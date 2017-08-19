@@ -1,0 +1,43 @@
+<form #userForm="ngForm" (submit)="createUser()">
+  <label>First Name:</label>
+  <input type="text" name="firstName" required minlength="2" maxlength="24" [(ngModel)]="user.firstName" #firstName="ngModel">
+  <span *ngIf="firstName.errors">
+    <p *ngIf="firstName.errors.required"> Please enter a first name</p>
+    <p *ngIf="firstName.errors.minlength"> First name must be at least 2 characters</p>
+   </span>
+  <br>
+  <label>Last Name:</label>
+  <input type="text" name="lastName" required minlength="2" maxlength="24" [(ngModel)]="user.lastName" #lastName="ngModel">  <span *ngIf="lastName.errors">
+    <p *ngIf="lastName.errors.required"> Please enter a last name</p>
+    <p *ngIf="lastName.errors.minlength"> Last name must be at least 2 characters</p>
+   </span><br>
+  <label>Email:</label>
+  <input type="text" name="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="user.email"
+    #email="ngModel">
+  <span *ngIf="email.errors">
+    <p *ngIf="email.errors.required"> Please enter an email address</p>
+    <p *ngIf="email.errors.pattern"> Not a valid email</p>
+   </span><br>
+  <label>Password:</label>
+  <input type="password" name="password" required minlength="8" maxlength="12" [(ngModel)]="user.password" #password="ngModel">
+  <span *ngIf="password.errors">
+    <p *ngIf="password.errors.required"> Please enter a password</p>
+    <p *ngIf="password.errors.minlength"> Password must be at least 8 characters</p>
+   </span>
+  <br>
+  <label>Confirm Password:</label>
+  <input type="password" name="passwordConfirmation" required minlength="8" maxlength="12" [(ngModel)]="user.passwordConfirmation"
+  (change) = "passwordCheck()"
+    #passwordConfirmation="ngModel">
+  <span *ngIf="passwordConfirmation.errors">
+    <p *ngIf="passwordConfirmation.errors.required"> Please confirm password</p>
+    <p *ngIf="passwordConfirmation.errors.minlength"> Password must be at least 8 characters</p>
+   </span>
+  <p *ngIf="passwordValid==false">Password must match!</p>
+  <br>
+
+
+
+  <input type="submit" value="Register" [disabled]="!userForm.valid">
+
+</form>
