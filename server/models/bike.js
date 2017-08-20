@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 
 var BikeSchema = new mongoose.Schema({
@@ -20,7 +21,8 @@ var BikeSchema = new mongoose.Schema({
     location: {
         type: String,
         required: [true, "Location required"]
-    }
+    }, 
+     _user: {type: Schema.Types.ObjectId, ref: 'User'},
 })
 
 var Bike = mongoose.model('Bike', BikeSchema)

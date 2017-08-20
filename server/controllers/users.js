@@ -13,7 +13,7 @@ module.exports = {
     // },
     register: function (req, res) {
 
-        var user = new User({ email: req.body.email, firstName: req.body.firstName, lastName: req.body.lastName, password: req.body.password, })
+        var user = new User({ email: req.body.email, firstName: req.body.firstName, lastName: req.body.lastName, password: req.body.password, bikes: []})
 
         user.save(function (err, user) {
             if (err) {

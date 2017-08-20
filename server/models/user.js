@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 var uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new mongoose.Schema({
@@ -27,8 +28,12 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Password required"],
         minlength: [8, "Password must be at least 8 characters long"],
-        maxlength: [12, "Password must be less than 13 characters long"],
-    }
-})
+        maxlength: [12, "Password must be less than 13 characters long"]
+    },
+      bikes : [{ type: Schema.Types.ObjectId, ref: 'Bike' }]
+});
+
+
 UserSchema.plugin(uniqueValidator, { message: 'The email you entered is already in use' });
+
 var User = mongoose.model('User', UserSchema)
