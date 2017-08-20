@@ -19,55 +19,73 @@ module.exports = {
             if (err) {
                 if (req.body.password !== req.body.passwordConfirmation) {
                     console.log("Passwords must match!")
-                    res.json({ err: err, message: "Error" });
+                    res.json({ err: err, loggedIn: false });
                 }
 
                 else {
 
-                    res.json({ err: err, message: "Error" });
+                    res.json({ message: "The email you entered is already in use", err: err, loggedIn: false });
                 }
             }
             else {
                 req.session.user = user;
-                localStorage.setItem("user", user);
                 console.log(req.session.user)
-  
-                res.json({ user: user, message: "Success" })
+
+                res.json({ user: user, loggedIn: true })
             }
 
         })
     },
-    loginAction: function(req, res){
-       User.findOne({email: req.body.email}, function(err, user){
-        if(user === null){
-            console.log("email not found")
-            res.json({ err: err, message: "Error" });
-       }     
-       else if(user.password !== req.body.password){
-            console.log ("Incorrect password!")
-            res.json({ err: err, message: "Error" });
-       }
-        else {
-            req.session.user = user
-            res.json(user)
-        }
+    login: function (req, res) {
+        User.findOne({ email: req.body.email, password:req.body }, function (err, user) {
+            if (err) {
+                if (user === null) {
+                    console.log("email not found")
+                    res.json({ err: err, message: "Email not found!", loggedIn: false });
+                }
+            }
+            else if (user.password !== req.body.password) {
+                console.log("Incorrect password!")
+                res.json({ err: err, message: "Incorrect Password!", loggedIn: false });
 
-       })
- 
+            }
+            else {
+
+                console.log(res.loggedIn)
+                req.session.user = user
+                console.log(req.session.user)
+                res.json({ user: user, loggedIn: true })
+            }
+
+        })
+
 
     },
 
-    show: function(req, res){
-        user = req.session.user
-        if(user === null){
+    show: function (req, res) {
+        sessionID = req.session.user._id
+        User.findOne({ _id: sessionID }, function (err, user) {
+            if (err) {
+                console.log("Current user not found")
+                res.json({ err: err, loggedIn: false })
+            }
+            else {
+                console.log("Current user is", user.firstName)
+                res.json({ currentUser: user, loggedIn: true })
+            }
 
-        }
+        })
+
+
+    },
+
+    logout: function (req, res) {
+        req.session.destroy
+        console.log(req.session.user)
+        res.json({ loggedIn: false })
     }
+}
     // success: function (req, res) {
     //     res.render('success')
     // },
-    // logout: function (req, res) {
-    //     req.session.destroy();
-    //     res.redirect('/')
-    // }
-}
+

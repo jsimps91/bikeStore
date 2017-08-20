@@ -12,6 +12,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LoginRegComponent implements OnInit {
   passwordValid = false;
   currentUser;
+  loginMessage = null;
+  regMessage = null;
   user = new User()
   constructor(private _router: Router, private _bikeService: BikeService){}
 
@@ -30,9 +32,30 @@ export class LoginRegComponent implements OnInit {
     this._bikeService.createUser(this.user)
       .then((response) => {
         console.log("HTTP RESPONSE:", response);
+        if(response.loggedIn === true){
         this.user = new User();
+        this.currentUser = response.user
         this._router.navigateByUrl('/bikes');
+        }
+      else{
+        this.regMessage=response.message
+      }
       });
   }
+  login(){
+    console.log("ABOUT TO LOGIN");
+    this._bikeService.login()
+    .then((response)=> {
+      console.log("HTTP RESPONSE:", response);
+      if(response.loggedIn === true){
+      this.currentUser = response.user
+      this._router.navigateByUrl('/bikes')        
+      }
+      else{
+        console.log("ERROR MESSAGE", response.message)
+        this.loginMessage = response.message
+      }
+    })
+  } 
 
 }

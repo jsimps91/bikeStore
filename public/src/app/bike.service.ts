@@ -18,8 +18,21 @@ export class BikeService {
       .map(data => data.json()).toPromise();
   }
 
-   showCurrentUser(){
-    return this._http.get('/api/show')
+  login(){
+    console.log("LOGIN GOING INTO HTTP REQUEST",)
+    return this._http.get('/api/login',)
+    .map(data => data.json()).toPromise();
+  }
+
+   getCurrentUser(){
+     console.log("GETTING CURRENT USER")
+    return this._http.get('/api/show',)
+    .map(data => data.json()).toPromise();
+  }
+
+  logout(){
+    console.log("LOGOUT GOING INTO HTTP REQUEST")
+    return this._http.get('/api/logout')
     .map(data => data.json()).toPromise();
   }
 

@@ -10,13 +10,33 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class BikeListComponent implements OnInit {
 
-  currentUser 
+  currentUser;
 
-  constructor(private _router: Router, private _bikeService: BikeService){}
+  constructor(private _router: Router, private _bikeService: BikeService) { }
 
   ngOnInit() {
-    
+
+    this.getCurrentUser()
+
+  }
+
+  getCurrentUser() {
+    console.log("ABOUT TO GET CURRENT USER")
+    this._bikeService.getCurrentUser()
+      .then((response) => {
+        this.currentUser = response.currentUser
+      })
+
+  }
+
+  logout(){
+    console.log("LOGGING OUT")
+    this._bikeService.logout()
+    .then((response) => {
+      console.log("logged out")
+      this._router.navigateByUrl('/');
+    })
   }
 
 
-  }
+}

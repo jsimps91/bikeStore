@@ -1,0 +1,11 @@
+p{
+    color: red;
+}
+.reg{
+    display: inline-block;
+    vertical-align: top;
+}
+.login{
+    display: inline-block;
+    vertical-align: top;
+}
