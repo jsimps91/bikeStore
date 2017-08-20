@@ -1,0 +1,56 @@
+<form #bikeForm="ngForm" (submit)="createBike()">
+    <label>Title</label>
+    <input type="text" 
+    name="title"
+    required
+    [(ngModel)]="bike.title"
+    #title="ngModel">
+    <span *ngIf="title.errors">
+        <p *ngIf="title.errors.required">
+            Title required
+        </p>
+    </span>
+    <br>
+    <label>Description</label>
+    <textarea 
+    name="description"
+    required 
+    maxlength="200"
+    [(ngModel)]="bike.description"
+    #description = "ngModel"
+    ></textarea>
+    <span *ngIf="description.errors">
+        <p *ngIf="description.errors.required">
+            Desription required
+        </p>
+    </span>
+    <br>
+    <label>Price</label>
+    <input type="number"
+    name="price"
+    required
+    min="1"
+    [(ngModel)]="bike.price"
+    #price="ngModel"
+    >
+    <span *ngIf="price.errors">
+        <p *ngIf="price.errors.required">
+            Price required
+        </p>
+    </span>
+    <br>
+    <label>Location</label>
+    <input type="text"
+    name="location"
+    required
+    [(ngModel)]="bike.location"
+    #location="ngModel"
+    >
+    <span *ngIf="location.errors">
+        <p *ngIf="location.errors.required">
+            Location required
+        </p>
+    </span>
+    <br>
+    <input type="submit" value="Sell Bike" [disabled]="!bikeForm.valid">     
+</form>

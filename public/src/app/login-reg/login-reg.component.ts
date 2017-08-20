@@ -35,7 +35,7 @@ export class LoginRegComponent implements OnInit {
         if(response.loggedIn === true){
         this.user = new User();
         this.currentUser = response.user
-        this._router.navigateByUrl('/bikes');
+        this._router.navigateByUrl('/bikes/show');
         }
       else{
         this.regMessage=response.message
@@ -44,12 +44,12 @@ export class LoginRegComponent implements OnInit {
   }
   login(){
     console.log("ABOUT TO LOGIN");
-    this._bikeService.login()
+    this._bikeService.login(this.user)
     .then((response)=> {
       console.log("HTTP RESPONSE:", response);
       if(response.loggedIn === true){
       this.currentUser = response.user
-      this._router.navigateByUrl('/bikes')        
+      this._router.navigateByUrl('/bikes/show')        
       }
       else{
         console.log("ERROR MESSAGE", response.message)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BikeService } from './../bike.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Bike } from '../bike'
 
 
 @Component({

@@ -37,14 +37,17 @@ module.exports = {
         })
     },
     login: function (req, res) {
-        User.findOne({ email: req.body.email, password:req.body }, function (err, user) {
-            if (err) {
-                if (user === null) {
-                    console.log("email not found")
-                    res.json({ err: err, message: "Email not found!", loggedIn: false });
-                }
+        User.findOne({ email: req.body.loginEmail}, function (err, user) {
+            console.log("THESE ARE THE LOGIN PARAMS", req.body.loginEmail, req.body.loginPassword)
+            console.log("THE USER IS", user)
+
+            if (user === null) {
+                console.log("email not found")
+                res.json({ err: err, message: "Email not found!", loggedIn: false });
             }
-            else if (user.password !== req.body.password) {
+
+
+            else if (user.password !== req.body.loginPassword) {
                 console.log("Incorrect password!")
                 res.json({ err: err, message: "Incorrect Password!", loggedIn: false });
 
@@ -53,6 +56,7 @@ module.exports = {
 
                 console.log(res.loggedIn)
                 req.session.user = user
+                console.log("USER LOGGED IN")
                 console.log(req.session.user)
                 res.json({ user: user, loggedIn: true })
             }
@@ -63,6 +67,7 @@ module.exports = {
     },
 
     show: function (req, res) {
+        console.log(req.session.user)
         sessionID = req.session.user._id
         User.findOne({ _id: sessionID }, function (err, user) {
             if (err) {

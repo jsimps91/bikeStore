@@ -18,9 +18,9 @@ export class BikeService {
       .map(data => data.json()).toPromise();
   }
 
-  login(){
+  login(user){
     console.log("LOGIN GOING INTO HTTP REQUEST",)
-    return this._http.post('/api/login',)
+    return this._http.post('/api/login', user)
     .map(data => data.json()).toPromise();
   }
 
