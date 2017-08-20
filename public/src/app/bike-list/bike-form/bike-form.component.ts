@@ -11,7 +11,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class BikeFormComponent implements OnInit {
 
   bike = new Bike();
-  bikeUpdate = new Bike();
   bikeMessage = null;
   bikes;
   currentUser;

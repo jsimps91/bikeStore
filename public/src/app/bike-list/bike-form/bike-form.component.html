@@ -1,5 +1,6 @@
 
 <form #updateForm="ngForm" *ngFor="let bike of bikes" (submit)="updateBike(bike._id)">
+    {{ bike | json }}
     <input type="text"
     name="title"
     required

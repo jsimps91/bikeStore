@@ -63,9 +63,10 @@ module.exports =
         update: function (req, res) {
             console.log("BIKE UPDATE MADE IT TO CONTROLLER", req.body)
             Bike.update({ _id: req.params.id }, {
-                $set: { title: req.body.updateTitle, description: req.body.updateDescription, price: req.body.updatePrice, location: req.body.updateLocation }, function(err, bike) {
+                $set: { title: req.body.title, description: req.body.description, price: req.body.price, location: req.body.location }, function(err, bike) {
                     if (err) {
                         console.log(err)
+                        res.json(err)
                     }
                     else {
                         bike.save()
