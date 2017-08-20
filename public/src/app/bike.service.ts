@@ -20,7 +20,7 @@ export class BikeService {
 
   login(){
     console.log("LOGIN GOING INTO HTTP REQUEST",)
-    return this._http.get('/api/login',)
+    return this._http.post('/api/login',)
     .map(data => data.json()).toPromise();
   }
 
