@@ -1,3 +1,14 @@
 <p>
   listing works!
 </p>
+
+
+<ul style="list-style-type: none" *ngFor="let bike of bikes">
+    <li>{{ bike.title }}</li>
+    <li>{{ bike.description }}</li>
+    <li>${{ bike.price }}</li>
+    <li>{{ bike.location }}<li>
+    <li *ngIf="bike._user == currentUser._id"><button (click)="deleteBike(bike._id)">Delete</button></li>
+    <li *ngIf="bike._user != currentUser._id"><button>Contact</button></li>
+  <br>
+</ul>

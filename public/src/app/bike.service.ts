@@ -35,5 +35,31 @@ export class BikeService {
     return this._http.get('/api/logout')
     .map(data => data.json()).toPromise();
   }
+  createBike(bike){
+    console.log("BIKE GOING INTO HTTP REQUEST", bike)
+    return this._http.post('api/create/bike', bike)
+    .map(data => data.json()).toPromise();
+  }
 
+  getBikes(){
+    console.log("GET BIKES GOING INTO HTTP REQUEST")
+    return this._http.get('api/show/bikes')
+    .map(data => data.json()).toPromise();
+  }
+
+  deleteBike(id){
+    console.log("DELETE BIKES GOING INTO HTTP REQUEST")
+    return this._http.delete(`/api/delete/bikes/${id}`).map(data => data.json()).toPromise();
+  }
+
+  getUserBikes(){
+    console.log("GET USER BIKES GOING INTO HTTP REQUEST")
+    return this._http.get('/api/show/user/bikes').map(data=> data.json()).toPromise();
+  }
+
+  updateBike(id, bike){
+    console.log("UPDATE BIKE GOING INTO HTTP REQUEST")
+    return this._http.post(`/api/update/bikes/${id}`, bike)
+    .map(data => data.json()).toPromise();
+  }
 }

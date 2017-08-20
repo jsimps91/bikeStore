@@ -38,6 +38,7 @@ export class LoginRegComponent implements OnInit {
         this._router.navigateByUrl('/bikes/show');
         }
       else{
+        this.user = new User();
         this.regMessage=response.message
       }
       });

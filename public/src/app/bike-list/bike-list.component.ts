@@ -12,6 +12,7 @@ import { Bike } from '../bike'
 export class BikeListComponent implements OnInit {
 
   currentUser;
+  bikes = []
 
   constructor(private _router: Router, private _bikeService: BikeService) { }
 
@@ -19,24 +20,33 @@ export class BikeListComponent implements OnInit {
 
     this.getCurrentUser()
 
+
   }
 
   getCurrentUser() {
     console.log("ABOUT TO GET CURRENT USER")
     this._bikeService.getCurrentUser()
       .then((response) => {
-        this.currentUser = response.currentUser
+        if (response.currentUser == "undefined") {
+          this._router.navigateByUrl('/')
+        }
+        else {
+          this.currentUser = response.currentUser
+        }
       })
 
   }
 
-  logout(){
+
+
+
+  logout() {
     console.log("LOGGING OUT")
     this._bikeService.logout()
-    .then((response) => {
-      console.log("logged out")
-      this._router.navigateByUrl('/');
-    })
+      .then((response) => {
+        console.log("logged out")
+        this._router.navigateByUrl('/');
+      })
   }
 
 
