@@ -9,6 +9,7 @@ import { FormsModule} from '@angular/forms';
 import { HttpModule} from '@angular/http';
 import { BikeFormComponent } from './bike-list/bike-form/bike-form.component';
 import { ListingComponent } from './bike-list/listing/listing.component';
+import { EditFormComponent } from './bike-list/edit-form/edit-form.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ListingComponent } from './bike-list/listing/listing.component';
     LoginRegComponent,
     BikeListComponent,
     BikeFormComponent,
-    ListingComponent
+    ListingComponent,
+    EditFormComponent
   ],
   imports: [
     BrowserModule,

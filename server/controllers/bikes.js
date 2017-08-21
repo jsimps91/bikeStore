@@ -61,22 +61,31 @@ module.exports =
         },
 
         update: function (req, res) {
-            console.log("BIKE UPDATE MADE IT TO CONTROLLER", req.body)
-            Bike.update({ _id: req.params.id }, {
-                $set: { title: req.body.title, description: req.body.description, price: req.body.price, location: req.body.location }, function(err, bike) {
-                    if (err) {
-                        console.log(err)
-                        res.json(err)
-                    }
-                    else {
-                        bike.save()
-                        console.log("BIKE SAVED", bike)
-                        res.json(bike)
-                    }
+            console.log("BIKE UPDATE MADE IT TO CONTROLLER", req.body, req.params.id)
+            Bike.findById(req.params.id, function(err, bike){
+                if (err) {
+                    res.json({error: "could not find bike with id"})
                 }
+                else{
+                    bike._user = bike._user; 
+                    bike.title = req.body.title;
+                    bike.description = req.body.description;
+                    bike.price = req.body.price;
+                    bike.location = req.body.location
 
-
+                    bike.save(function(err, updatedBike){
+                        console.log(updatedBike);   
+                        if(err){
+                            res.json({err: "bike could not be saved"})
+                        }
+                        else{
+                            console.log("BIKE SAVED", updatedBike)
+                            res.json(updatedBike)
+                        }
+                    })
+                }
             })
+
         },
 
         showUserBikes: function (req, res) {

@@ -19,6 +19,7 @@ export class BikeFormComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser()
     this.getUserBikes()
+    
   }
 
   createBike() {
@@ -46,28 +47,16 @@ export class BikeFormComponent implements OnInit {
         this.currentUser = response.currentUser
       })
     }
-    
-    getUserBikes(){
-      console.log("ABOUT TO GET USER BIKES")
-      this._bikeService.getUserBikes()
-      .then((response)=>{
+      getUserBikes() {
+    console.log("ABOUT TO GET USER BIKES")
+    this._bikeService.getUserBikes()
+      .then((response) => {
         console.log("USER BIKES", response)
         this.bikes = response.bikes
       })
-    }
-      deleteBike(id){
-      console.log("ABOUT TO DELETE BIKE WITH ID", id)
-      this._bikeService.deleteBike(id)
-      .then(response => this.getUserBikes()).catch(err => console.log(err));
+  }
+    
 
-  
-    }
-    updateBike(id){
-      console.log("ABOUT TO MAKE CHANGES TO BIKE WITH ID", id, this.bike)
-      this._bikeService.updateBike(id, this.bike)
-      .then(response => this.getUserBikes()).catch(err => console.log(err))
-      this.getCurrentUser()
-    }
 
 
 

@@ -1,0 +1,36 @@
+     <form  #updateForm="ngForm" (submit)="updateBike(b._id)">
+        <input type="text" name="title" required value="{{b.title}}" [(ngModel)]="editBike.title" #newTitle="ngModel">
+        <span *ngIf="newTitle.errors">
+        <p *ngIf="newTitle.errors.required">
+            Title required
+        </p>
+    </span>
+        <br>
+        <label>Description</label>
+        <textarea name="description" required value="{{b.description}}" maxlength="200" [(ngModel)]="editBike.description" #newDescription="ngModel"></textarea>
+        <span *ngIf="newDescription.errors">
+        <p *ngIf="newDescription.errors.required">
+            Desription required
+        </p>
+    </span>
+        <br>
+        <label>Price</label>
+        <input type="number" name="price" value={{b.price}} required min="1" [(ngModel)]="editBike.price" #newPrice="ngModel">
+        <span *ngIf="newPrice.errors">
+        <p *ngIf="newPrice.errors.required">
+            Price required
+        </p>
+    </span>
+        <br>
+        <label>Location</label>
+        <input type="text" name="location" value={{b.location}} required [(ngModel)]="editBike.location" #newLocation="ngModel">
+        <span *ngIf="newLocation.errors">
+        <p *ngIf="newLocation.errors.required">
+            Location required
+        </p>
+    </span>
+        <br>
+        <input style="background-color:green" type="submit" value="Update" [disabled]="!updateForm.valid"><br>
+<button style="background-color:red" (click)="deleteBike(b._id)">Delete</button>
+    </form>
+    
